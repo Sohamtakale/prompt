@@ -1,0 +1,166 @@
+[
+  {
+    "term": "Affidavit",
+    "definition": "A sworn statement submitted by every candidate along with their nomination papers, disclosing criminal cases, assets, liabilities, and educational qualifications. Mandated by the Supreme Court of India and Section 33A of the Representation of the People Act, 1951."
+  },
+  {
+    "term": "Anti-defection Law",
+    "definition": "The Tenth Schedule of the Indian Constitution (added by the 52nd Amendment Act, 1985) that disqualifies elected members who voluntarily give up party membership or vote against the party whip. The Speaker of the House decides defection cases."
+  },
+  {
+    "term": "Booth Level Officer (BLO)",
+    "definition": "A local government official assigned to each polling booth area, responsible for updating the electoral roll, verifying voter identities, and assisting voters with registration. BLOs are the ground-level link between the Election Commission and voters."
+  },
+  {
+    "term": "Campaign Silence Period",
+    "definition": "A mandatory 48-hour period before the close of polling during which no election campaigning, speeches, rallies, or broadcast of political advertisements is permitted. This allows voters to make their decision free from last-minute influence."
+  },
+  {
+    "term": "Coalition Government",
+    "definition": "A government formed by two or more political parties joining together to achieve a majority in the legislature. Common in Indian politics when no single party wins enough seats (272 in Lok Sabha) to form government on its own."
+  },
+  {
+    "term": "Constituency",
+    "definition": "A geographical area whose voters elect a single representative to the legislature. India has 543 Lok Sabha constituencies and varying numbers of Vidhan Sabha (state assembly) constituencies per state, determined by the Delimitation Commission."
+  },
+  {
+    "term": "Counting Agent",
+    "definition": "A representative appointed by each candidate to observe the vote counting process at the counting centre. Counting agents ensure transparency by witnessing each round of counting and can raise objections to the Returning Officer."
+  },
+  {
+    "term": "cVIGIL",
+    "definition": "A mobile app launched by the Election Commission of India that allows citizens to report Model Code of Conduct violations with time-stamped, geo-tagged photo or video evidence. Reports are acted upon by flying squads within 100 minutes."
+  },
+  {
+    "term": "Delimitation",
+    "definition": "The process of redrawing the boundaries of Lok Sabha and Vidhan Sabha constituencies based on census data to ensure roughly equal population representation. Carried out by the independent Delimitation Commission under Article 82 of the Constitution."
+  },
+  {
+    "term": "Election Observer",
+    "definition": "A senior officer appointed by the Election Commission to oversee the election process in assigned constituencies. There are General Observers, Expenditure Observers, and Police Observers — each monitoring different aspects of election conduct."
+  },
+  {
+    "term": "Election Schedule",
+    "definition": "The detailed timetable announced by the Election Commission specifying dates for notification, filing of nominations, scrutiny, withdrawal, polling, and counting for each constituency or phase of elections."
+  },
+  {
+    "term": "EPIC (Electors Photo Identity Card)",
+    "definition": "The Voter ID card issued by the Election Commission of India to every registered voter. While carrying EPIC is recommended, voters can also use any of the 12 approved alternative photo ID documents for voting."
+  },
+  {
+    "term": "EVM (Electronic Voting Machine)",
+    "definition": "A portable electronic device used for recording votes in Indian elections since 1999 (nationwide from 2004). EVMs have two units: the Control Unit (with the Presiding Officer) and the Ballot Unit (in the voting compartment). They are standalone machines with no network connectivity."
+  },
+  {
+    "term": "Exit Poll",
+    "definition": "A survey conducted by asking voters whom they voted for immediately after they exit the polling station. In India, exit polls cannot be published or broadcast until the last phase of polling is completed, as per Section 126A of the RP Act."
+  },
+  {
+    "term": "Expenditure Observer",
+    "definition": "An officer appointed by the Election Commission to monitor and ensure that candidates do not exceed the prescribed expenditure limit during elections. Currently, the limit is ₹95 lakh for Lok Sabha and ₹40 lakh for State Assembly elections."
+  },
+  {
+    "term": "First Past The Post (FPTP)",
+    "definition": "The electoral system used in India where the candidate who receives the most votes (simple plurality) in a constituency wins the seat. Unlike proportional representation, FPTP does not require a candidate to win more than 50% of votes."
+  },
+  {
+    "term": "Flying Squad",
+    "definition": "Mobile teams constituted by the District Election Officer to conduct surprise checks on vehicles, meetings, and premises to detect violations of the Model Code of Conduct, including distribution of cash, liquor, or other inducements to voters."
+  },
+  {
+    "term": "Form 6",
+    "definition": "The official application form for new voter registration in India. Eligible citizens (18+ years, ordinary resident of a constituency) must submit Form 6 online via the National Voters' Service Portal (NVSP) or through the Booth Level Officer."
+  },
+  {
+    "term": "Hung Parliament",
+    "definition": "A situation where no single political party or pre-election alliance wins enough seats to form a majority government (272 seats in a 543-member Lok Sabha). This typically leads to coalition negotiations or a minority government formation."
+  },
+  {
+    "term": "Lok Sabha",
+    "definition": "The lower house of India's Parliament (House of the People), consisting of up to 552 members — 543 elected directly by voters from territorial constituencies and up to 2 nominated by the President from the Anglo-Indian community (discontinued after the 104th Amendment). Each Lok Sabha has a term of 5 years unless dissolved earlier."
+  },
+  {
+    "term": "Margin of Victory",
+    "definition": "The numerical difference in votes between the winning candidate and the runner-up in a constituency. It is an important electoral metric that indicates the competitiveness of the contest."
+  },
+  {
+    "term": "Model Code of Conduct (MCC)",
+    "definition": "A set of guidelines issued by the Election Commission of India that comes into force from the date of election announcement. It governs the conduct of political parties, candidates, and the government to ensure free and fair elections. While not statutory law, it is enforced through administrative powers of the ECI."
+  },
+  {
+    "term": "No-confidence Motion",
+    "definition": "A parliamentary procedure under Article 75 of the Constitution where Lok Sabha members can express lack of confidence in the Council of Ministers. If passed by a simple majority, the Prime Minister and the entire Council of Ministers must resign. At least 50 members must support the motion for it to be admitted."
+  },
+  {
+    "term": "Nomination",
+    "definition": "The formal process by which a candidate files their candidature for an election. A nomination must include the prescribed form, a security deposit (₹25,000 for Lok Sabha, ₹10,000 for Assembly — half for SC/ST candidates), a sworn affidavit, and proposer signatures."
+  },
+  {
+    "term": "NRI Voting",
+    "definition": "Non-Resident Indians (NRIs) who are citizens of India can register as overseas electors under Section 20A of the RP Act, 1950 (inserted by the 2010 amendment). They must be present in person at their constituency polling station to vote — postal/proxy voting for NRIs is proposed but not yet implemented."
+  },
+  {
+    "term": "Opinion Poll",
+    "definition": "A survey conducted before elections to gauge public sentiment about parties, candidates, and issues. Unlike exit polls, opinion polls can be conducted and published at any time, but are banned during the 48-hour campaign silence period."
+  },
+  {
+    "term": "Overseas Voter",
+    "definition": "An Indian citizen residing abroad who has not acquired citizenship of another country and has a valid Indian passport. Overseas voters can register using Form 6A on the NVSP portal and are enrolled in the electoral roll of their original constituency."
+  },
+  {
+    "term": "Polling Agent",
+    "definition": "A representative appointed by each candidate to be present inside the polling station during voting. Polling agents ensure the identity of voters, monitor for irregularities, and can challenge suspected impersonation. Each candidate can appoint one polling agent per polling station."
+  },
+  {
+    "term": "Postal Ballot",
+    "definition": "A facility allowing certain categories of voters to cast their vote by mail without visiting the polling station. Eligible categories include service voters (armed forces), government officials on election duty, voters above 80 years of age, persons with disabilities, and voters under preventive detention."
+  },
+  {
+    "term": "President's Rule",
+    "definition": "A provision under Article 356 of the Constitution where the President of India can assume direct governance of a state if the state government cannot function according to constitutional provisions. During President's Rule, the state legislature is either suspended or dissolved, and the state is governed by the Governor on behalf of the President."
+  },
+  {
+    "term": "Presiding Officer",
+    "definition": "The officer in charge of a polling station on election day. The Presiding Officer is responsible for conducting the poll, maintaining order, identifying voters, operating the EVM Control Unit, and ensuring the secrecy of the ballot."
+  },
+  {
+    "term": "Proxy Voting",
+    "definition": "A provision under the Representation of the People Act that currently allows only classified service voters (armed forces personnel) to appoint a proxy to vote on their behalf at their designated polling station."
+  },
+  {
+    "term": "Psephology",
+    "definition": "The scientific and statistical study of elections, voting patterns, and electoral behaviour. Psephologists analyze data like swing percentages, vote shares, and demographic voting trends to understand and predict election outcomes."
+  },
+  {
+    "term": "Rajya Sabha",
+    "definition": "The upper house of India's Parliament (Council of States), consisting of up to 250 members — 238 elected indirectly by state and union territory legislative assemblies through proportional representation via the Single Transferable Vote system, and 12 nominated by the President for expertise in literature, science, art, and social service. Members serve 6-year terms, with one-third retiring every 2 years."
+  },
+  {
+    "term": "Reserved Constituency",
+    "definition": "Constituencies reserved for candidates belonging to Scheduled Castes (SC) or Scheduled Tribes (ST) under Articles 330 and 332 of the Constitution. While only SC/ST candidates can contest from these seats, all registered voters in the constituency can vote regardless of caste or tribe."
+  },
+  {
+    "term": "Returning Officer",
+    "definition": "A senior government officer (usually the District Magistrate or District Collector) appointed by the Election Commission to oversee the entire election process in a constituency — from receiving nominations, conducting the poll, to declaring the result."
+  },
+  {
+    "term": "Schedule I–VII",
+    "definition": "The Schedules of the Indian Constitution that relate to governance structures. Key schedules for elections include: First Schedule (States and UTs), Fourth Schedule (Rajya Sabha seat allocation), Seventh Schedule (division of powers — Union, State, Concurrent Lists), and Tenth Schedule (Anti-Defection provisions)."
+  },
+  {
+    "term": "Scrutiny",
+    "definition": "The process by which the Returning Officer examines all nomination papers filed by candidates. Nominations can be rejected if: the candidate is not qualified, the form is incomplete, the security deposit is not paid, or the proposer is not a registered voter in the constituency."
+  },
+  {
+    "term": "Star Campaigner",
+    "definition": "A leader designated by a recognized political party whose travel and campaign expenditure is not counted against the local candidate's spending limit (if the event is a general party campaign). Recognized national/state parties can designate up to 40 star campaigners; registered unrecognized parties can designate up to 20."
+  },
+  {
+    "term": "VVPAT (Voter Verifiable Paper Audit Trail)",
+    "definition": "A machine attached to the EVM that prints a paper slip showing the serial number, name, and symbol of the candidate for whom the vote was cast. The slip is displayed behind a transparent window for 7 seconds, then drops into a sealed box. Mandatory in all elections since 2019 as per Supreme Court directive."
+  },
+  {
+    "term": "Withdrawal",
+    "definition": "The process by which a nominated candidate can withdraw their candidature before the last date specified in the election schedule. Withdrawal is irrevocable once submitted — a candidate who withdraws cannot re-enter the contest for that election."
+  }
+]

@@ -1,0 +1,112 @@
+[
+  {
+    "name": "Bharatiya Janata Party",
+    "abbreviation": "BJP",
+    "founded": 1980,
+    "symbol_description": "Lotus flower",
+    "alliance": "National Democratic Alliance (NDA)",
+    "key_policy_areas": ["Economic development", "Infrastructure", "National security", "Digital India", "Make in India"],
+    "headquarters": "New Delhi",
+    "website": "https://www.bjp.org",
+    "states_strong_in": ["Uttar Pradesh", "Gujarat", "Madhya Pradesh", "Rajasthan", "Karnataka", "Assam"]
+  },
+  {
+    "name": "Indian National Congress",
+    "abbreviation": "INC",
+    "founded": 1885,
+    "symbol_description": "Hand (palm facing forward)",
+    "alliance": "Indian National Developmental Inclusive Alliance (INDIA)",
+    "key_policy_areas": ["Social welfare", "Secularism", "Rural development", "Employment guarantee (MGNREGA)", "Public healthcare"],
+    "headquarters": "New Delhi",
+    "website": "https://www.inc.in",
+    "states_strong_in": ["Rajasthan", "Karnataka", "Telangana", "Himachal Pradesh"]
+  },
+  {
+    "name": "Aam Aadmi Party",
+    "abbreviation": "AAP",
+    "founded": 2012,
+    "symbol_description": "Broom",
+    "alliance": "Indian National Developmental Inclusive Alliance (INDIA)",
+    "key_policy_areas": ["Anti-corruption", "Public education", "Healthcare", "Water and electricity subsidies", "Governance reform"],
+    "headquarters": "New Delhi",
+    "website": "https://www.aamaadmiparty.org",
+    "states_strong_in": ["Delhi", "Punjab"]
+  },
+  {
+    "name": "Bahujan Samaj Party",
+    "abbreviation": "BSP",
+    "founded": 1984,
+    "symbol_description": "Elephant",
+    "alliance": "Unaligned",
+    "key_policy_areas": ["Social justice for Dalits and OBCs", "Reservation policy", "Welfare of marginalized communities", "Anti-caste discrimination"],
+    "headquarters": "New Delhi",
+    "website": "https://www.bfrsindia.com",
+    "states_strong_in": ["Uttar Pradesh"]
+  },
+  {
+    "name": "Communist Party of India (Marxist)",
+    "abbreviation": "CPI(M)",
+    "founded": 1964,
+    "symbol_description": "Hammer, sickle, and star",
+    "alliance": "Left Front / Indian National Developmental Inclusive Alliance (INDIA)",
+    "key_policy_areas": ["Workers' rights", "Land reform", "Public sector development", "Social equality", "Secularism"],
+    "headquarters": "New Delhi",
+    "website": "https://www.cpim.org",
+    "states_strong_in": ["Kerala", "West Bengal", "Tripura"]
+  },
+  {
+    "name": "Nationalist Congress Party – Sharadchandra Pawar",
+    "abbreviation": "NCP (SP)",
+    "founded": 1999,
+    "symbol_description": "Man blowing turha (trumpet)",
+    "alliance": "Indian National Developmental Inclusive Alliance (INDIA)",
+    "key_policy_areas": ["Agriculture", "Rural development", "Decentralization", "Social justice", "Cooperative sector"],
+    "headquarters": "New Delhi",
+    "website": "https://www.ncp.org.in",
+    "states_strong_in": ["Maharashtra"]
+  },
+  {
+    "name": "Shiv Sena (Uddhav Balasaheb Thackeray)",
+    "abbreviation": "SS (UBT)",
+    "founded": 1966,
+    "symbol_description": "Flaming torch (mashaal)",
+    "alliance": "Indian National Developmental Inclusive Alliance (INDIA)",
+    "key_policy_areas": ["Regional pride", "Marathi identity", "Employment for locals", "Urban development", "Infrastructure"],
+    "headquarters": "Mumbai, Maharashtra",
+    "website": "https://www.shivsena.org",
+    "states_strong_in": ["Maharashtra"]
+  },
+  {
+    "name": "Telugu Desam Party",
+    "abbreviation": "TDP",
+    "founded": 1982,
+    "symbol_description": "Bicycle",
+    "alliance": "National Democratic Alliance (NDA)",
+    "key_policy_areas": ["Development of Andhra Pradesh", "IT and technology", "Agriculture", "Welfare schemes", "Capital city development"],
+    "headquarters": "Amaravati, Andhra Pradesh",
+    "website": "https://www.telugudezam.org",
+    "states_strong_in": ["Andhra Pradesh"]
+  },
+  {
+    "name": "Dravida Munnetra Kazhagam",
+    "abbreviation": "DMK",
+    "founded": 1949,
+    "symbol_description": "Rising sun",
+    "alliance": "Indian National Developmental Inclusive Alliance (INDIA)",
+    "key_policy_areas": ["Social justice", "Dravidian identity", "Tamil language promotion", "Federalism", "Welfare schemes"],
+    "headquarters": "Chennai, Tamil Nadu",
+    "website": "https://www.dmk.in",
+    "states_strong_in": ["Tamil Nadu", "Puducherry"]
+  },
+  {
+    "name": "All India Trinamool Congress",
+    "abbreviation": "TMC",
+    "founded": 1998,
+    "symbol_description": "Flowers and grass (Jora Ghash Phool)",
+    "alliance": "Indian National Developmental Inclusive Alliance (INDIA)",
+    "key_policy_areas": ["Rural development", "Women's empowerment", "Social welfare", "Anti-land acquisition", "Employment generation"],
+    "headquarters": "Kolkata, West Bengal",
+    "website": "https://www.aitcofficial.org",
+    "states_strong_in": ["West Bengal"]
+  }
+]

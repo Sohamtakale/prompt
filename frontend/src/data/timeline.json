@@ -1,0 +1,58 @@
+[
+  {
+    "id": "announcement",
+    "stage": "Election Announcement",
+    "description": "The Election Commission of India (ECI) announces election dates through an official Press Note. The Model Code of Conduct (MCC) comes into immediate effect from the date and time of the announcement, binding all political parties, candidates, and the government.",
+    "key_body": "Election Commission of India",
+    "typical_duration": "1 day",
+    "citizen_action": "Watch for MCC guidelines — the government cannot announce new schemes, projects, or grants after this point. Monitor the ECI website and official gazette for constituency-wise schedule."
+  },
+  {
+    "id": "nominations",
+    "stage": "Nomination Filing",
+    "description": "Candidates file their nomination papers with the Returning Officer of their constituency. Each candidate must submit a sworn affidavit disclosing criminal cases, assets, liabilities, and educational qualifications. The Returning Officer scrutinizes all nominations and may reject invalid ones. Candidates can withdraw their nominations before the last date of withdrawal.",
+    "key_body": "Returning Officer (District level)",
+    "typical_duration": "7–10 days (filing + scrutiny + withdrawal)",
+    "citizen_action": "Check candidate affidavits on the ECI Candidate Portal. Verify criminal records and asset declarations of all candidates in your constituency to make an informed choice."
+  },
+  {
+    "id": "campaign",
+    "stage": "Election Campaign",
+    "description": "Political parties and candidates campaign to win voter support through rallies, door-to-door canvassing, advertisements, social media, and public meetings. The ECI monitors campaign expenditure — each candidate has a spending cap (currently ₹95 lakh for Lok Sabha, ₹40 lakh for Assembly). A campaign silence period of 48 hours before polling begins, during which no campaigning is allowed.",
+    "key_body": "Election Commission of India (Expenditure Observers)",
+    "typical_duration": "14–20 days (ends 48 hours before polling)",
+    "citizen_action": "Attend public meetings, read party manifestos, and compare candidate promises. Report MCC violations via the cVIGIL app. Be aware of the 48-hour campaign silence period before your polling day."
+  },
+  {
+    "id": "voting",
+    "stage": "Polling Day",
+    "description": "Voters cast their ballots at designated polling stations using Electronic Voting Machines (EVMs). Each voter verifies their vote through the Voter Verifiable Paper Audit Trail (VVPAT) slip displayed for 7 seconds. Polling typically runs from 7 AM to 6 PM, though hours may vary by state. Voters in queue at 6 PM are allowed to vote. Polling booths have a Presiding Officer, Polling Officers, and agents of each candidate.",
+    "key_body": "Presiding Officer (Booth level)",
+    "typical_duration": "1 day per phase (multi-phase elections span weeks)",
+    "citizen_action": "Carry your EPIC (Voter ID) or any of the 12 approved photo ID documents. Locate your polling booth via the Voter Helpline App or voterportal.eci.gov.in. Check your name on the electoral roll before polling day. Vote independently — no photography or phone use inside the booth."
+  },
+  {
+    "id": "counting",
+    "stage": "Vote Counting",
+    "description": "Votes are counted at designated counting centres under tight security. EVM votes are counted first, followed by postal ballots (including service voters and absentee voters). VVPAT paper slips from 5 randomly selected booths per constituency are matched with EVM results as a mandatory audit. Counting agents of all candidates observe the process. Trends are updated on the ECI Results portal in real time.",
+    "key_body": "Returning Officer (supervised by Election Observers)",
+    "typical_duration": "1 day (typically same for all constituencies)",
+    "citizen_action": "Follow live counting on results.eci.gov.in. Understand that trends may fluctuate as different rounds are counted. Final results are declared constituency-by-constituency by the Returning Officer."
+  },
+  {
+    "id": "results",
+    "stage": "Results Declaration",
+    "description": "The Returning Officer formally declares the winning candidate in each constituency after all rounds of counting are completed and any recounting (if demanded and approved) is done. Results are published in the official gazette. The ECI releases the complete statistical data including total votes polled, vote share percentages, and margins of victory.",
+    "key_body": "Returning Officer + Election Commission of India",
+    "typical_duration": "1–2 days (declaration + gazette notification)",
+    "citizen_action": "Verify final results on the ECI website. Understand the difference between seats won and vote share percentage. Review the Form 20 (result sheet) for your constituency."
+  },
+  {
+    "id": "government_formation",
+    "stage": "New Government Formation",
+    "description": "The party or coalition with a majority of seats (272+ in Lok Sabha for the national government) is invited by the President of India to form the government. The leader of the majority party/coalition is appointed as Prime Minister. If no party has a clear majority, the President may invite the single largest party or a coalition to prove majority on the floor of the House. The new Council of Ministers is sworn in, and the new Lok Sabha session begins.",
+    "key_body": "President of India + Lok Sabha Secretariat",
+    "typical_duration": "3–10 days after results",
+    "citizen_action": "Understand the government formation process, the role of the President in inviting parties, and the concept of a confidence motion. Track which parties join coalitions and the formation of the Council of Ministers."
+  }
+]

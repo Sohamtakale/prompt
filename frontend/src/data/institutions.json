@@ -1,0 +1,107 @@
+[
+  {
+    "id": "eci",
+    "name": "Election Commission of India",
+    "abbreviation": "ECI",
+    "constitutional_basis": "Article 324 of the Constitution of India. Established on 25 January 1950.",
+    "composition": "A Chief Election Commissioner (CEC) and two Election Commissioners. Appointed by the President of India on the recommendation of a selection committee (PM, Leader of Opposition, and a Union Cabinet Minister). All three members have equal powers and decisions are taken by majority.",
+    "key_powers": [
+      "Superintendence, direction, and control of all elections to Parliament, State Legislatures, and the offices of President and Vice-President",
+      "Preparation, revision, and maintenance of electoral rolls",
+      "Notification of election schedules and enforcement of the Model Code of Conduct",
+      "Registration and recognition of political parties; allotment of election symbols",
+      "Setting and enforcing expenditure limits for candidates",
+      "Power to countermand elections in case of booth capturing, violence, or natural disaster",
+      "Deployment of central armed police forces during elections",
+      "Power to bar candidates found guilty of corrupt practices"
+    ],
+    "current_head": "Chief Election Commissioner (as appointed — check ECI website for current incumbent)",
+    "website": "https://eci.gov.in"
+  },
+  {
+    "id": "supreme_court",
+    "name": "Supreme Court of India",
+    "abbreviation": "SCI",
+    "constitutional_basis": "Articles 124–147 of the Constitution. Established on 26 January 1950, succeeding the Federal Court of India.",
+    "composition": "The Chief Justice of India (CJI) and up to 33 other judges, appointed by the President on the recommendation of the Supreme Court Collegium.",
+    "key_powers": [
+      "Hears election petitions challenging the election of the President and Vice-President",
+      "Appellate jurisdiction over High Court decisions on election petitions for Parliament and State Legislatures",
+      "Judicial review of election laws and ECI decisions",
+      "Landmark mandates: mandatory candidate affidavits (2003), NOTA option (2013), VVPAT verification (2019)",
+      "Power to issue writs under Article 32 for enforcement of fundamental rights related to elections",
+      "Advisory jurisdiction under Article 143 — the President can seek the Court's opinion on legal questions related to elections"
+    ],
+    "current_head": "Chief Justice of India (as appointed — check SCI website for current incumbent)",
+    "website": "https://www.sci.gov.in"
+  },
+  {
+    "id": "president",
+    "name": "President of India",
+    "abbreviation": null,
+    "constitutional_basis": "Articles 52–62 of the Constitution. The President is the Head of State and the first citizen of India.",
+    "composition": "A single individual elected by an electoral college consisting of elected members of both Houses of Parliament and the elected members of State Legislative Assemblies and Legislative Assemblies of Delhi and Puducherry. Uses proportional representation through the Single Transferable Vote system.",
+    "key_powers": [
+      "Appoints the Prime Minister and the Council of Ministers on their advice",
+      "Appoints the Chief Election Commissioner and Election Commissioners",
+      "Can dissolve the Lok Sabha on the advice of the Council of Ministers",
+      "Imposes President's Rule in states under Article 356",
+      "Nominates 12 members to Rajya Sabha and 2 members to Lok Sabha (Anglo-Indian, discontinued)",
+      "Assents to bills passed by Parliament, including election-related legislation",
+      "Issues ordinances under Article 123 when Parliament is not in session"
+    ],
+    "current_head": "President of India (as elected — check rashtrapatibhavan.gov.in for current incumbent)",
+    "website": "https://rashtrapatibhavan.gov.in"
+  },
+  {
+    "id": "lok_sabha_secretariat",
+    "name": "Lok Sabha Secretariat",
+    "abbreviation": "LSS",
+    "constitutional_basis": "Article 98 of the Constitution provides for a separate secretarial staff for each House of Parliament. The Lok Sabha Secretariat functions under the direction and control of the Speaker of the Lok Sabha.",
+    "composition": "Headed by the Secretary-General of the Lok Sabha, appointed by the Speaker. The Secretariat has multiple branches handling legislative, committee, administrative, and library functions.",
+    "key_powers": [
+      "Provides administrative and procedural support for all Lok Sabha sessions",
+      "Prepares and circulates the daily Order Paper, List of Business, and Bulletin",
+      "Services all Parliamentary Committees including the Committee on Public Accounts and Estimates Committee",
+      "Maintains records of all debates, proceedings, and votes in Lok Sabha",
+      "Processes questions, motions, resolutions, and bills introduced in Lok Sabha",
+      "Supports the Speaker in conducting proceedings, enforcing rules, and maintaining order"
+    ],
+    "current_head": "Secretary-General, Lok Sabha (as appointed by the Speaker)",
+    "website": "https://loksabha.nic.in"
+  },
+  {
+    "id": "rajya_sabha_secretariat",
+    "name": "Rajya Sabha Secretariat",
+    "abbreviation": "RSS (Secretariat)",
+    "constitutional_basis": "Article 98 of the Constitution. The Rajya Sabha Secretariat functions under the direction and control of the Chairman of the Rajya Sabha (the Vice-President of India).",
+    "composition": "Headed by the Secretary-General of the Rajya Sabha, appointed by the Chairman. Organized into multiple services, branches, and sections.",
+    "key_powers": [
+      "Provides administrative and procedural support for all Rajya Sabha sessions",
+      "Handles the biennial elections of Rajya Sabha members by state legislative assemblies",
+      "Maintains records of debates, committee reports, and legislative actions",
+      "Manages the process of bills received from Lok Sabha and returned with or without amendments",
+      "Processes nominations of 12 members by the President",
+      "Supports the Chairman and Deputy Chairman in conducting proceedings and maintaining order"
+    ],
+    "current_head": "Secretary-General, Rajya Sabha (as appointed by the Chairman)",
+    "website": "https://rajyasabha.nic.in"
+  },
+  {
+    "id": "state_election_commissions",
+    "name": "State Election Commissions",
+    "abbreviation": "SECs",
+    "constitutional_basis": "Article 243K (for Panchayats) and Article 243ZA (for Municipalities) of the Constitution, inserted by the 73rd and 74th Constitutional Amendment Acts of 1992.",
+    "composition": "Each state has an independent State Election Commissioner appointed by the Governor. The SEC is a single-member body (unlike the multi-member ECI). The SEC can only be removed through a process similar to the removal of a High Court judge.",
+    "key_powers": [
+      "Superintendence, direction, and control of elections to Panchayati Raj Institutions (village, block, and district levels)",
+      "Superintendence, direction, and control of elections to Municipal bodies (Nagar Panchayats, Municipal Councils, and Municipal Corporations)",
+      "Preparation and revision of electoral rolls for local body elections",
+      "Delimitation of wards and constituencies for local body elections",
+      "Enforcement of the Model Code of Conduct during local body elections",
+      "Power to postpone or countermand local body elections in extraordinary circumstances"
+    ],
+    "current_head": "State Election Commissioner (varies by state — each state has its own SEC)",
+    "website": "Varies by state (e.g., sec.up.nic.in for Uttar Pradesh, tnsec.tn.nic.in for Tamil Nadu)"
+  }
+]

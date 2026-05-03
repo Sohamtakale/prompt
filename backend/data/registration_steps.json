@@ -1,0 +1,110 @@
+[
+  {
+    "step": 1,
+    "title": "Check Eligibility",
+    "description": "Verify that you meet all the eligibility requirements to register as a voter in India.",
+    "requirements": [
+      "You must be a citizen of India",
+      "You must have attained the age of 18 years on the qualifying date (1st January of the year of revision of the electoral roll)",
+      "You must be an ordinary resident of the constituency where you wish to be registered",
+      "You must not be disqualified under any law (e.g., unsound mind as declared by a competent court, disqualified for corrupt practices or election offences)"
+    ],
+    "action_items": [
+      "Calculate your age as of 1st January of the current year",
+      "Confirm you are an Indian citizen (not an Overseas Citizen of India cardholder, which is different from an Indian citizen)",
+      "Identify your ordinary place of residence and the constituency it falls under",
+      "NRI citizens with valid Indian passports can register using Form 6A"
+    ],
+    "helpful_links": [
+      "https://voterportal.eci.gov.in",
+      "https://voters.eci.gov.in"
+    ]
+  },
+  {
+    "step": 2,
+    "title": "Fill Form 6 Online",
+    "description": "Submit Form 6 (Application for Inclusion of Name in Electoral Roll) through the official online portal.",
+    "requirements": [
+      "Access to the National Voters' Service Portal (NVSP) or Voter Helpline App",
+      "A valid mobile number for OTP verification",
+      "A recent passport-sized colour photograph (JPEG, under 50KB)",
+      "Basic personal details: name, date of birth, address, father's/mother's/husband's name"
+    ],
+    "action_items": [
+      "Visit https://voters.eci.gov.in or download the 'Voter Helpline' app from Play Store/App Store",
+      "Click on 'New Voter Registration' or 'Form 6'",
+      "Fill in all required fields: Part number, Assembly constituency, personal details",
+      "Upload your passport-sized photograph",
+      "Verify your mobile number via OTP",
+      "Submit the form and note down your Application Reference ID",
+      "You can also submit Form 6 offline through your local Booth Level Officer (BLO) or the Electoral Registration Officer (ERO)"
+    ],
+    "helpful_links": [
+      "https://voters.eci.gov.in/newregistration",
+      "https://play.google.com/store/apps/details?id=com.eci.citizen"
+    ]
+  },
+  {
+    "step": 3,
+    "title": "Prepare Required Documents",
+    "description": "Keep your identity and address proof documents ready for verification by the Booth Level Officer.",
+    "requirements": [
+      "One proof of age (any one): Birth certificate, 10th class mark sheet, Indian passport, PAN card, Aadhaar card",
+      "One proof of address (any one): Aadhaar card, ration card, Indian passport, utility bill (electricity/water/gas — recent), bank passbook with updated address, rent agreement with notarization",
+      "One recent passport-sized photograph (same as uploaded in Form 6)"
+    ],
+    "action_items": [
+      "Gather original documents — the BLO may visit your residence for physical verification",
+      "Keep photocopies ready as well",
+      "If you have an Aadhaar card, it serves as both age and address proof",
+      "For NRIs using Form 6A: valid Indian passport is mandatory",
+      "Ensure your name spelling matches across all documents"
+    ],
+    "helpful_links": [
+      "https://eci.gov.in/voter/documents"
+    ]
+  },
+  {
+    "step": 4,
+    "title": "Locate Your Polling Booth",
+    "description": "Find your designated polling station where you will cast your vote on election day.",
+    "requirements": [
+      "Your constituency and part number (available on the NVSP portal after registration)",
+      "Your EPIC number (Voter ID number) or application reference ID"
+    ],
+    "action_items": [
+      "Visit https://voterportal.eci.gov.in and click on 'Know Your Polling Station'",
+      "Alternatively, use the Voter Helpline App → 'Know Your' → 'Polling Booth'",
+      "You can also send an SMS: EPIC <space> <Voter ID Number> to 1950",
+      "Call the Voter Helpline at 1950 (toll-free) for assistance",
+      "Note down your polling station name, address, and booth number",
+      "Visit the location once before election day so you know the route"
+    ],
+    "helpful_links": [
+      "https://voterportal.eci.gov.in",
+      "https://eci.gov.in/voter-helpline"
+    ]
+  },
+  {
+    "step": 5,
+    "title": "Verify Your Name on the Voter List",
+    "description": "Confirm that your name appears correctly on the final electoral roll before election day to avoid any issues during voting.",
+    "requirements": [
+      "Your EPIC number (Voter ID card number) or your full name and address details",
+      "Access to the Electoral Search portal or the Voter Helpline App"
+    ],
+    "action_items": [
+      "Visit https://electoralsearch.eci.gov.in",
+      "Search by EPIC number (recommended — fastest) or by personal details (name + father's name + age + state + constituency)",
+      "Verify that your name, age, gender, address, and photograph are correct",
+      "If there are errors, file Form 8 (Correction of Entries) via the NVSP portal",
+      "If your name is missing, file a fresh Form 6 application",
+      "Check the voter list well before elections — last-minute additions may not be processed",
+      "Collect your EPIC (Voter ID card) from the ERO office if you haven't received it yet — you can also download the e-EPIC from the Voter Helpline App"
+    ],
+    "helpful_links": [
+      "https://electoralsearch.eci.gov.in",
+      "https://voters.eci.gov.in"
+    ]
+  }
+]
