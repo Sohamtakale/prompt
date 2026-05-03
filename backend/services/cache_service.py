@@ -8,7 +8,6 @@ import asyncio
 import hashlib
 import logging
 import time
-from collections import OrderedDict
 from typing import Any
 
 
@@ -21,7 +20,7 @@ class CacheService:
     """
 
     def __init__(self, ttl: int = 3600, max_size: int = 256) -> None:
-        self._cache: OrderedDict[str, dict[str, Any]] = OrderedDict()
+        self._cache: dict[str, dict[str, Any]] = {}
         self._ttl = ttl
         self._max_size = max_size
         self._hits = 0
@@ -31,104 +30,61 @@ class CacheService:
 
     @staticmethod
     def _make_key(endpoint: str, input_text: str) -> str:
-        """Generate a SHA-256 cache key from endpoint and input.
-
-        Args:
-            endpoint: The API endpoint name (e.g., "qa", "mythcheck").
-            input_text: The user input string.
-
-        Returns:
-            A hex-encoded SHA-256 hash string.
-        """
+        """Generate a SHA-256 cache key from endpoint and input."""
         raw = f"{endpoint}:{input_text}"
         return hashlib.sha256(raw.encode()).hexdigest()
 
     async def get(self, endpoint: str, input_text: str) -> Any | None:
-        """Retrieve a cached value if it exists and hasn't expired.
-
-        Args:
-            endpoint: The API endpoint name.
-            input_text: The user input string.
-
-        Returns:
-            The cached value, or None if not found or expired.
-        """
+        """Retrieve a cached value if it exists and hasn't expired."""
         key = self._make_key(endpoint, input_text)
         async with self._lock:
             entry = self._cache.get(key)
             if entry is None:
                 self._misses += 1
-                self.logger.debug("Cache MISS for key=%s endpoint=%s", key[:12], endpoint)
                 return None
 
             if time.monotonic() - entry["timestamp"] > self._ttl:
-                # Entry has expired — remove it
                 del self._cache[key]
                 self._misses += 1
-                self.logger.debug(
-                    "Cache EXPIRED for key=%s endpoint=%s", key[:12], endpoint
-                )
                 return None
 
             self._hits += 1
-            self.logger.debug("Cache HIT for key=%s endpoint=%s", key[:12], endpoint)
-
-            # Move to end for LRU ordering (most recently used)
-            self._cache.move_to_end(key)  # type: ignore[attr-defined]
-            return entry["value"]
+            # Move to end (most recently used)
+            val = self._cache.pop(key)
+            self._cache[key] = val
+            return val["value"]
 
     async def set(self, endpoint: str, input_text: str, value: Any) -> None:
-        """Store a value in the cache with current timestamp.
-
-        If the cache is at max capacity, the least recently used entry
-        is evicted before inserting.
-
-        Args:
-            endpoint: The API endpoint name.
-            input_text: The user input string.
-            value: The value to cache (typically a Pydantic model dict).
-        """
+        """Store a value in the cache with current timestamp."""
         key = self._make_key(endpoint, input_text)
         async with self._lock:
-            # Evict LRU entry if at capacity
-            if len(self._cache) >= self._max_size and key not in self._cache:
+            # If key exists, pop it so it's re-inserted at the end
+            if key in self._cache:
+                self._cache.pop(key)
+            elif len(self._cache) >= self._max_size:
+                # Evict LRU entry (first key in dict)
                 oldest_key = next(iter(self._cache))
                 del self._cache[oldest_key]
-                self.logger.debug("Cache EVICT oldest key=%s", oldest_key[:12])
 
             self._cache[key] = {
                 "value": value,
                 "timestamp": time.monotonic(),
             }
-            self._cache.move_to_end(key)
-            self.logger.debug("Cache SET key=%s endpoint=%s", key[:12], endpoint)
 
     async def invalidate(self, endpoint: str, input_text: str) -> bool:
-        """Remove a specific entry from the cache.
-
-        Args:
-            endpoint: The API endpoint name.
-            input_text: The user input string.
-
-        Returns:
-            True if the entry was found and removed, False otherwise.
-        """
+        """Remove a specific entry from the cache."""
         key = self._make_key(endpoint, input_text)
         async with self._lock:
             if key in self._cache:
                 del self._cache[key]
-                self.logger.debug("Cache INVALIDATE key=%s", key[:12])
                 return True
             return False
 
     def stats(self) -> dict[str, int]:
-        """Return cache performance statistics.
-
-        Returns:
-            Dictionary with hits, misses, and current size.
-        """
+        """Return cache performance statistics."""
         return {
             "hits": self._hits,
             "misses": self._misses,
             "size": len(self._cache),
         }
+

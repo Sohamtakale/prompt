@@ -59,7 +59,7 @@ class GeminiService:
         if not api_key:
             raise RuntimeError("GEMINI_API_KEY environment variable is not set")
         self.client = genai.Client(api_key=api_key)
-        self.model_name = os.environ.get("GEMINI_MODEL", "gemini-2.0-flash-001")
+        self.model_name = os.environ.get("GEMINI_MODEL", "gemini-flash-latest")
         self.logger = logging.getLogger(__name__)
 
     # ── Internal helpers ─────────────────────────────────────────────────
@@ -173,8 +173,9 @@ Return a JSON array where each element has:
 - "correct_index": integer 0-3
 - "explanation": string"""
 
-        response = self._call_gemini(prompt, "quiz", use_grounding=True)
+        response = self._call_gemini(prompt, "quiz", use_grounding=False)
         data_text = self._strip_code_fence(response.text)  # type: ignore[union-attr]
+        self.logger.info("Quiz raw JSON: %s", data_text)
         data = json.loads(data_text)
 
         if isinstance(data, dict):
@@ -186,7 +187,11 @@ Return a JSON array where each element has:
         if not isinstance(data, list):
             data = [data]
 
-        return [QuizQuestion.model_validate(q) for q in data]
+        try:
+            return [QuizQuestion.model_validate(q) for q in data]
+        except Exception as e:
+            self.logger.error("Quiz validation error: %s. Data: %s", str(e), data)
+            raise ValueError(f"Failed to validate quiz data: {e}")
 
     async def check_myth(self, claim: str) -> MythCheckResponse:
         """Fact-check a claim about Indian elections."""

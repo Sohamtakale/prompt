@@ -1,30 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
+import { api } from '../../services/api';
 import SpeakButton from '../SpeakButton/SpeakButton';
-
-const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
-const SYSTEM_PROMPT = `You are VoteWise, an expert Indian election education assistant.
-Help citizens understand Indian elections, voting rights, ECI, political parties, and civic duties.
-Be factual, neutral, concise (2-4 sentences). Only answer questions related to Indian elections and civics.
-If asked anything unrelated, politely redirect to election topics.`;
-
-async function callGroq(messages: { role: 'user' | 'assistant'; content: string }[]): Promise<string> {
-  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${GROQ_API_KEY}`,
-    },
-    body: JSON.stringify({
-      model: 'llama-3.3-70b-versatile',
-      messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages],
-      max_tokens: 512,
-      temperature: 0.4,
-    }),
-  });
-  if (!res.ok) throw new Error(`Groq error ${res.status}`);
-  const data = await res.json();
-  return data.choices[0].message.content.trim();
-}
 
 interface Message {
   role: 'user' | 'assistant';
@@ -72,7 +48,7 @@ export default function ChatBubble() {
         role: m.role as 'user' | 'assistant',
         content: m.content,
       }));
-      const reply = await callGroq(history);
+      const reply = await api.chat(history);
       const assistantMsg: Message = { role: 'assistant', content: reply };
       setMessages((prev) => [...prev.slice(-9), assistantMsg]);
     } catch {
