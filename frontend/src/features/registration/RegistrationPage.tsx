@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import registrationData from '../../data/registration_steps.json';
 import { api } from '../../services/api';
 import type { RegistrationStep } from '../../types';
@@ -9,8 +9,20 @@ export default function RegistrationPage() {
   const [currentStep, setCurrentStep] = useState(0);
   const [explanation, setExplanation] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const headingRef = useRef<HTMLHeadingElement>(null);
 
   const step = steps[currentStep];
+
+  // Move focus to the step heading whenever the step changes so keyboard/screen
+  // reader users know the content has updated without re-reading the whole page.
+  useEffect(() => {
+    headingRef.current?.focus();
+  }, [currentStep]);
+
+  function goToStep(index: number) {
+    setCurrentStep(index);
+    setExplanation(null);
+  }
 
   const handleExplain = async () => {
     setLoading(true);
@@ -47,10 +59,7 @@ export default function RegistrationPage() {
             role="tab"
             aria-selected={i === currentStep}
             aria-current={i === currentStep ? 'step' : undefined}
-            onClick={() => {
-              setCurrentStep(i);
-              setExplanation(null);
-            }}
+            onClick={() => goToStep(i)}
             className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer ${
               i === currentStep
                 ? 'bg-accent text-white shadow-lg shadow-accent/30'
@@ -69,14 +78,19 @@ export default function RegistrationPage() {
         ))}
       </div>
 
-      {/* Step counter */}
-      <p className="text-center text-text-muted text-sm mb-6">
+      {/* Step counter — announced to screen readers on step change */}
+      <p className="text-center text-text-muted text-sm mb-6" aria-live="polite" aria-atomic="true">
         Step {currentStep + 1} of {steps.length}
       </p>
 
       {/* Current step content */}
-      <div className="glass-card animate-fade-in-up" style={{ padding: '3rem' }} key={step.step}>
-        <h2 className="text-3xl font-bold text-text-primary mb-3">
+      <div className="glass-card animate-fade-in-up" style={{ padding: '3rem' }}>
+        {/* tabIndex={-1} makes it programmatically focusable; focus-visible ring shows on keyboard only */}
+        <h2
+          ref={headingRef}
+          tabIndex={-1}
+          className="text-3xl font-bold text-text-primary mb-3 outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
+        >
           {step.title}
         </h2>
         <p className="text-lg text-text-secondary mb-8">{step.description}</p>
@@ -89,7 +103,7 @@ export default function RegistrationPage() {
           <ul className="space-y-3">
             {step.requirements.map((req, i) => (
               <li key={i} className="flex items-start gap-3 text-base text-text-secondary leading-relaxed">
-                <span className="text-accent mt-0.5">•</span>
+                <span className="text-accent mt-0.5" aria-hidden="true">•</span>
                 {req}
               </li>
             ))}
@@ -104,7 +118,7 @@ export default function RegistrationPage() {
           <ol className="space-y-3">
             {step.action_items.map((item, i) => (
               <li key={i} className="flex items-start gap-3 text-base text-text-secondary leading-relaxed">
-                <span className="text-saffron font-bold mt-0.5 min-w-[1.25rem]">
+                <span className="text-saffron font-bold mt-0.5 min-w-[1.25rem]" aria-hidden="true">
                   {i + 1}.
                 </span>
                 {item}
@@ -156,22 +170,18 @@ export default function RegistrationPage() {
 
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
             <button
-              onClick={() => {
-                setCurrentStep((prev) => Math.max(0, prev - 1));
-                setExplanation(null);
-              }}
+              onClick={() => goToStep(Math.max(0, currentStep - 1))}
               disabled={currentStep === 0}
+              aria-disabled={currentStep === 0}
               style={{ padding: '0.75rem 1.5rem' }}
               className="bg-surface-raised text-text-secondary rounded-lg font-medium hover:bg-surface-overlay transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
             >
               ← Previous
             </button>
             <button
-              onClick={() => {
-                setCurrentStep((prev) => Math.min(steps.length - 1, prev + 1));
-                setExplanation(null);
-              }}
+              onClick={() => goToStep(Math.min(steps.length - 1, currentStep + 1))}
               disabled={currentStep === steps.length - 1}
+              aria-disabled={currentStep === steps.length - 1}
               style={{ padding: '0.75rem 1.5rem' }}
               className="bg-accent text-white rounded-lg font-medium hover:bg-accent-light transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
             >
@@ -180,11 +190,14 @@ export default function RegistrationPage() {
           </div>
         </div>
 
-        {explanation && (
-          <div className="mt-6 p-6 bg-surface-raised/50 border border-white/5 rounded-xl animate-fade-in" aria-live="polite">
-            <p className="text-sm text-text-secondary leading-relaxed">{explanation}</p>
-          </div>
-        )}
+        {/* Explanation — aria-live so screen readers announce it when it appears */}
+        <div aria-live="polite" aria-atomic="true">
+          {explanation && (
+            <div className="mt-6 p-6 bg-surface-raised/50 border border-white/5 rounded-xl animate-fade-in">
+              <p className="text-sm text-text-secondary leading-relaxed">{explanation}</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

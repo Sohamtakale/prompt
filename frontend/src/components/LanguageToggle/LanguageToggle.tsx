@@ -1,25 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useLanguage } from '../../context/LanguageContext';
 
-interface LanguageToggleProps {
-  onChange?: (lang: 'en' | 'hi') => void;
-}
+export default function LanguageToggle() {
+  const { lang, setLang, isTranslating } = useLanguage();
 
-export default function LanguageToggle({ onChange }: LanguageToggleProps) {
-  const [lang, setLang] = useState<'en' | 'hi'>(() => {
-    if (typeof window !== 'undefined') {
-      return (localStorage.getItem('votewise-lang') as 'en' | 'hi') || 'en';
-    }
-    return 'en';
-  });
-
-  useEffect(() => {
-    localStorage.setItem('votewise-lang', lang);
-    onChange?.(lang);
-  }, [lang, onChange]);
-
-  const toggle = () => {
-    setLang((prev) => (prev === 'en' ? 'hi' : 'en'));
-  };
+  const toggle = () => setLang(lang === 'en' ? 'hi' : 'en');
 
   return (
     <button
@@ -27,21 +11,17 @@ export default function LanguageToggle({ onChange }: LanguageToggleProps) {
       aria-checked={lang === 'hi'}
       aria-label={lang === 'en' ? 'Switch to Hindi' : 'Switch to English'}
       onClick={toggle}
-      className="relative flex items-center gap-1 px-3 py-1.5 bg-surface-raised border border-surface-overlay rounded-full text-sm font-medium transition-all hover:border-accent/40 cursor-pointer"
+      disabled={isTranslating}
+      className="relative flex items-center gap-1 px-3 py-1.5 bg-surface-raised border border-surface-overlay rounded-full text-sm font-medium transition-all hover:border-accent/40 cursor-pointer disabled:opacity-60"
     >
-      <span
-        className={`transition-colors duration-200 ${
-          lang === 'en' ? 'text-accent font-bold' : 'text-text-muted'
-        }`}
-      >
+      {isTranslating ? (
+        <span className="w-3 h-3 border border-current border-t-transparent rounded-full animate-spin" aria-hidden="true" />
+      ) : null}
+      <span className={`transition-colors duration-200 ${lang === 'en' ? 'text-accent font-bold' : 'text-text-muted'}`}>
         EN
       </span>
       <span className="text-text-muted">/</span>
-      <span
-        className={`transition-colors duration-200 ${
-          lang === 'hi' ? 'text-accent font-bold' : 'text-text-muted'
-        }`}
-      >
+      <span className={`transition-colors duration-200 ${lang === 'hi' ? 'text-accent font-bold' : 'text-text-muted'}`}>
         हि
       </span>
     </button>

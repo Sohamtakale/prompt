@@ -29,7 +29,7 @@ export default function ComparisonPage() {
       </header>
 
       {/* State filter */}
-      <div role="search" className="flex justify-center" style={{ marginTop: '1.5rem', marginBottom: '2.5rem' }}>
+      <div className="flex justify-center" style={{ marginTop: '1.5rem', marginBottom: '2.5rem' }}>
         <div className="relative group">
           <label htmlFor="state-filter" className="sr-only">
             Filter by state
@@ -56,7 +56,6 @@ export default function ComparisonPage() {
         {filteredParties.map((party, index) => (
           <article
             key={party.abbreviation}
-            role="article"
             className={`glass-card animate-fade-in-up opacity-0 stagger-${Math.min(index + 1, 7)}`}
             style={{ padding: '1.5rem' }}
           >
@@ -128,7 +127,7 @@ export default function ComparisonPage() {
       </div>
 
       {filteredParties.length === 0 && (
-        <div className="text-center py-12 text-text-muted">
+        <div className="text-center py-12 text-text-muted" role="status" aria-live="assertive">
           <p>No parties found for the selected state.</p>
           <button
             onClick={() => setStateFilter('')}

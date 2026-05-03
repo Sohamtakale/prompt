@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { api } from '../../services/api';
 import type { MythCheckResponse, Verdict } from '../../types';
+import SpeakButton from '../../components/SpeakButton/SpeakButton';
+import { useLanguage } from '../../context/LanguageContext';
 
 const MAX_CHARS = 500;
 
@@ -17,11 +19,24 @@ interface HistoryItem {
 }
 
 export default function MythCheckPage() {
+  const { lang, translate } = useLanguage();
   const [claim, setClaim] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<MythCheckResponse | null>(null);
+  const resultHeadingRef = useRef<HTMLSpanElement>(null);
+  const [translatedExplanation, setTranslatedExplanation] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [history, setHistory] = useState<HistoryItem[]>([]);
+
+  // Re-translate explanation whenever language or result changes
+  useEffect(() => {
+    if (!result) return;
+    if (lang === 'en') {
+      setTranslatedExplanation(null);
+      return;
+    }
+    translate(result.explanation).then(setTranslatedExplanation);
+  }, [lang, result, translate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,6 +50,7 @@ export default function MythCheckPage() {
       const response = await api.mythCheck(claim);
       setResult(response);
       setHistory((prev) => [{ claim, response }, ...prev].slice(0, 5));
+      setTimeout(() => resultHeadingRef.current?.focus(), 50);
     } catch (err) {
       setError(
         err instanceof Error ? err.message : 'Failed to check claim. Please try again.',
@@ -109,20 +125,26 @@ export default function MythCheckPage() {
         </button>
       </form>
 
-      {/* Error */}
+      {/* Error — role="alert" triggers immediate announcement */}
       {error && (
-        <div className="mb-8 p-5 bg-error/10 border border-error/30 rounded-xl text-error font-medium animate-fade-in shadow-[0_0_15px_rgba(239,68,68,0.1)] flex items-start gap-3" role="alert">
-          <span className="text-xl">⚠️</span>
+        <div className="mb-8 p-5 bg-error/10 border border-error/30 rounded-xl text-error font-medium animate-fade-in shadow-[0_0_15px_rgba(239,68,68,0.1)] flex items-start gap-3" role="alert" aria-live="assertive">
+          <span className="text-xl" aria-hidden="true">⚠️</span>
           <p>{error}</p>
         </div>
       )}
 
+      {/* Persistent live region — always in DOM so screen readers track it */}
+      <div aria-live="polite" aria-atomic="true">
       {/* Result */}
       {result && (
-        <div className="glass-card p-8 mb-12 animate-fade-in-up stagger-2 ring-1 ring-white/10" aria-live="polite">
+        <div className="glass-card p-8 mb-12 animate-fade-in-up stagger-2 ring-1 ring-white/10">
           {/* Verdict badge */}
           <div className="flex items-center gap-4 mb-6 pb-6 border-b border-white/5">
-            <span className={`badge text-lg px-5 py-2 ${verdictConfig[result.verdict].badge}`}>
+            <span
+              ref={resultHeadingRef}
+              tabIndex={-1}
+              className={`badge text-lg px-5 py-2 outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded ${verdictConfig[result.verdict].badge}`}
+            >
               <span aria-hidden="true" className="font-black drop-shadow-sm">{verdictConfig[result.verdict].icon}</span>
               {verdictConfig[result.verdict].label}
             </span>
@@ -130,9 +152,16 @@ export default function MythCheckPage() {
 
           {/* Explanation */}
           <div className="prose prose-invert max-w-none">
-            <p className="text-text-primary text-lg leading-relaxed mb-8 font-light">
-              {result.explanation}
-            </p>
+            <div className="flex items-start justify-between gap-4 mb-8">
+              <p className="text-text-primary text-lg leading-relaxed font-light flex-1" lang={lang === 'hi' ? 'hi' : 'en'}>
+                {translatedExplanation ?? result.explanation}
+              </p>
+              <SpeakButton
+                text={translatedExplanation ?? result.explanation}
+                languageCode={lang === 'hi' ? 'hi-IN' : 'en-IN'}
+                className="flex-shrink-0 mt-1"
+              />
+            </div>
           </div>
 
           {/* Confidence bar */}
@@ -161,8 +190,33 @@ export default function MythCheckPage() {
               <span className="italic">{result.source_hint}</span>
             </p>
           </div>
+
+          {/* Grounding sources from Google Search */}
+          {result.grounding_sources && result.grounding_sources.length > 0 && (
+            <div className="mt-4 flex items-start gap-3 text-sm text-text-muted bg-surface/50 p-4 rounded-lg">
+              <span className="text-lg">🌐</span>
+              <div>
+                <strong className="text-text-secondary uppercase tracking-wider text-xs block mb-2">Verified via Google Search</strong>
+                <ul className="space-y-1">
+                  {result.grounding_sources.map((url, i) => (
+                    <li key={i}>
+                      <a
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-accent hover:underline break-all text-xs"
+                      >
+                        {url}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
         </div>
       )}
+      </div>
 
       {/* History */}
       {history.length > 0 && (
@@ -170,23 +224,24 @@ export default function MythCheckPage() {
           <h2 className="text-xl font-bold text-text-primary mb-6 flex items-center gap-2">
             <span className="text-accent">🕒</span> Recent Checks
           </h2>
-          <div className="space-y-3">
+          <ul className="space-y-3 list-none p-0 m-0">
             {history.map((item, index) => (
-              <button
-                key={index}
-                onClick={() => handleHistoryClick(item)}
-                className="w-full text-left glass-card p-5 flex items-center justify-between cursor-pointer hover:bg-white/5 transition-all group"
-              >
-                <span className="text-base text-text-secondary font-medium truncate mr-6 group-hover:text-text-primary transition-colors">
-                  &quot;{item.claim}&quot;
-                </span>
-                <span className={`badge ${verdictConfig[item.response.verdict].badge} flex-shrink-0 group-hover:scale-105 transition-transform`}>
-                  <span aria-hidden="true" className="font-bold">{verdictConfig[item.response.verdict].icon}</span>
-                  {verdictConfig[item.response.verdict].label}
-                </span>
-              </button>
+              <li key={index}>
+                <button
+                  onClick={() => handleHistoryClick(item)}
+                  className="w-full text-left glass-card p-5 flex items-center justify-between cursor-pointer hover:bg-white/5 transition-all group"
+                >
+                  <span className="text-base text-text-secondary font-medium truncate mr-6 group-hover:text-text-primary transition-colors">
+                    &quot;{item.claim}&quot;
+                  </span>
+                  <span className={`badge ${verdictConfig[item.response.verdict].badge} flex-shrink-0 group-hover:scale-105 transition-transform`}>
+                    <span aria-hidden="true" className="font-bold">{verdictConfig[item.response.verdict].icon}</span>
+                    {verdictConfig[item.response.verdict].label}
+                  </span>
+                </button>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       )}
     </div>

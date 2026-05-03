@@ -26,7 +26,6 @@ export default function InstitutionsPage({ onQuiz }: InstitutionsPageProps) {
         {institutions.map((inst, index) => (
           <article
             key={inst.id}
-            role="article"
             className={`glass-card flex flex-col animate-fade-in-up opacity-0 stagger-${Math.min(index + 1, 7)} transition-all duration-300 ${
               expanded === inst.id ? 'ring-2 ring-accent ring-offset-2 ring-offset-surface scale-[1.02]' : ''
             }`}
@@ -51,6 +50,8 @@ export default function InstitutionsPage({ onQuiz }: InstitutionsPageProps) {
               onClick={() => setExpanded(expanded === inst.id ? null : inst.id)}
               className="text-left w-full text-sm mb-6 cursor-pointer group flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors"
               aria-expanded={expanded === inst.id}
+              aria-controls={`powers-${inst.id}`}
+              aria-label={`${expanded === inst.id ? 'Hide' : 'Show'} key powers of ${inst.name}`}
             >
               <span className="text-accent-light font-bold uppercase tracking-widest text-xs group-hover:text-white transition-colors">
                 {expanded === inst.id ? 'Hide Key Powers' : 'Show Key Powers'}
@@ -61,7 +62,7 @@ export default function InstitutionsPage({ onQuiz }: InstitutionsPageProps) {
             </button>
 
             {expanded === inst.id && (
-              <div className="animate-fade-in mb-6">
+              <div id={`powers-${inst.id}`} className="animate-fade-in mb-6">
                 <ul className="space-y-3">
                   {inst.key_powers.map((power, i) => (
                     <li key={i} className="flex items-start gap-3 text-sm text-text-secondary font-medium">

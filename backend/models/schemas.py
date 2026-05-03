@@ -17,6 +17,7 @@ class QAResponse(BaseModel):
 
     answer: str
     related_terms: list[str]
+    grounding_sources: list[str] = Field(default_factory=list)
 
 
 class QuizRequest(BaseModel):
@@ -48,6 +49,7 @@ class MythCheckResponse(BaseModel):
     explanation: str
     confidence: float = Field(..., ge=0.0, le=1.0)
     source_hint: str
+    grounding_sources: list[str] = Field(default_factory=list)
 
 
 class TranslateRequest(BaseModel):

@@ -5,6 +5,7 @@
 export interface QAResponse {
   answer: string;
   related_terms: string[];
+  grounding_sources?: string[];
 }
 
 export interface QuizQuestion {
@@ -21,6 +22,7 @@ export interface MythCheckResponse {
   explanation: string;
   confidence: number;
   source_hint: string;
+  grounding_sources?: string[];
 }
 
 export interface TranslateResponse {

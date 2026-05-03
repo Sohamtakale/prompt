@@ -2,10 +2,11 @@
 
 import logging
 
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException, Request
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 
+from middleware.auth import get_optional_user
 from models.schemas import QuizQuestion, QuizRequest
 from services.gemini_service import GeminiService
 
@@ -20,14 +21,21 @@ limiter = Limiter(key_func=get_remote_address)
 
 @router.post("/quiz", response_model=list[QuizQuestion])
 @limiter.limit("30/minute")
-async def generate_quiz(request: Request, body: QuizRequest) -> list[QuizQuestion]:
+async def generate_quiz(
+    request: Request,  # noqa: ARG001 — consumed by @limiter.limit decorator
+    body: QuizRequest,
+    user: dict | None = Depends(get_optional_user),
+) -> list[QuizQuestion]:
     """Generate multiple-choice quiz questions about an Indian election topic.
 
     Quiz responses are NEVER cached — each request generates fresh questions
     for variety and educational value.
     """
     try:
-        return await gemini_service.generate_quiz(body.topic, body.count)
+        questions = await gemini_service.generate_quiz(body.topic, body.count)
+        if user:
+            logger.info("Quiz generated for uid=%s topic=%r", user["uid"][:8], body.topic)
+        return questions
 
     except ValueError as e:
         logger.warning("Input validation error in /quiz: %s", str(e))

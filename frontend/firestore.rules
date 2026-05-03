@@ -1,6 +1,12 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Users can only read/write their own history documents
+    match /users/{userId}/history/{docId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // All other documents are denied
     match /{document=**} {
       allow read, write: if false;
     }

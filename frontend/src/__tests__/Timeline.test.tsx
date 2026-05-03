@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
+import axe from 'axe-core';
 import { MemoryRouter } from 'react-router-dom';
 import TimelinePage from '../features/timeline/TimelinePage';
 
@@ -40,5 +41,15 @@ describe('TimelinePage', () => {
 
     const lists = screen.getAllByRole('list');
     expect(lists.length).toBeGreaterThan(0);
+  });
+
+  it('has no accessibility violations', async () => {
+    const { container } = render(
+      <MemoryRouter>
+        <TimelinePage />
+      </MemoryRouter>,
+    );
+    const results = await axe.run(container);
+    expect(results.violations).toHaveLength(0);
   });
 });

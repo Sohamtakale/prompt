@@ -4,6 +4,8 @@ import ChatBubble from './components/ChatBubble/ChatBubble';
 import QuizModal from './components/QuizModal/QuizModal';
 import Navigation from './components/Navigation/Navigation';
 import UserNav from './components/auth/UserNav';
+import LanguageToggle from './components/LanguageToggle/LanguageToggle';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 // Lazy-loaded feature pages
 const TimelinePage = React.lazy(() => import('./features/timeline/TimelinePage'));
@@ -12,6 +14,7 @@ const ComparisonPage = React.lazy(() => import('./features/comparison/Comparison
 const GlossaryPage = React.lazy(() => import('./features/glossary/GlossaryPage'));
 const MythCheckPage = React.lazy(() => import('./features/mythcheck/MythCheckPage'));
 const InstitutionsPage = React.lazy(() => import('./features/institutions/InstitutionsPage'));
+const QAPage = React.lazy(() => import('./features/qa/QAPage'));
 
 function LoadingSpinner() {
   return (
@@ -31,6 +34,7 @@ const featureCards = [
   { emoji: '📖', label: 'Glossary', desc: "Master 40+ key terms from 'Electoral Roll' to 'Anti-Defection Law' in plain English.", link: 'A-Z Dictionary →', to: '/glossary' },
   { emoji: '🔍', label: 'Myth Check', desc: 'Fact-check common claims and viral misinformation about EVM, VVPAT, and voting rights.', link: 'Verify Claims →', to: '/mythcheck' },
   { emoji: '⚖️', label: 'Parties', desc: 'Explore the landscape of National and State parties, their symbols, and current representation.', link: 'Party Directory →', to: '/parties' },
+  { emoji: '💬', label: 'Ask VoteWise', desc: 'Get instant answers about Indian elections, voting rights, and civic procedures — powered by Gemini AI.', link: 'Ask a Question →', to: '/ask' },
 ];
 
 const voterSteps = [
@@ -226,6 +230,10 @@ export default function App() {
               </div>
               <div className="h-6 w-px bg-[#E8E4DA] flex-shrink-0 hidden md:block" />
               <div className="flex-shrink-0">
+                <LanguageToggle />
+              </div>
+              <div className="h-6 w-px bg-[#E8E4DA] flex-shrink-0 hidden md:block" />
+              <div className="flex-shrink-0">
                 <UserNav />
               </div>
             </div>
@@ -234,6 +242,7 @@ export default function App() {
 
         {/* Main content */}
         <main id="main-content" className="relative w-full flex-1 flex flex-col">
+          <ErrorBoundary>
           <Suspense fallback={<LoadingSpinner />}>
             <Routes>
               <Route path="/" element={<HomePage />} />
@@ -246,8 +255,10 @@ export default function App() {
                 path="/institutions"
                 element={<InstitutionsPage onQuiz={handleQuiz} />}
               />
+              <Route path="/ask" element={<QAPage />} />
             </Routes>
           </Suspense>
+          </ErrorBoundary>
         </main>
       </div>
 

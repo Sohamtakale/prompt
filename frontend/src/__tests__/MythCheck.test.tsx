@@ -1,8 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
+import axe from 'axe-core';
 import { MemoryRouter } from 'react-router-dom';
 import MythCheckPage from '../features/mythcheck/MythCheckPage';
+
+vi.mock('../context/LanguageContext', () => ({
+  useLanguage: () => ({ lang: 'en', translate: (t: string) => Promise.resolve(t) }),
+}));
 
 describe('MythCheckPage', () => {
   it('renders the myth check form', () => {
@@ -54,5 +59,15 @@ describe('MythCheckPage', () => {
 
     const submitButton = screen.getByRole('button', { name: /verify claim/i });
     expect(submitButton).not.toBeDisabled();
+  });
+
+  it('has no accessibility violations', async () => {
+    const { container } = render(
+      <MemoryRouter>
+        <MythCheckPage />
+      </MemoryRouter>,
+    );
+    const results = await axe.run(container);
+    expect(results.violations).toHaveLength(0);
   });
 });

@@ -5,13 +5,15 @@ Uses Application Default Credentials on Cloud Run.
 """
 
 import logging
-import os
 
 from models.schemas import TranslateResponse
+from services.lru_cache import LRUCache
+
+_cache: LRUCache[TranslateResponse] = LRUCache(max_size=512)
 
 
 class TranslationService:
-    """Service for translating text between English and Hindi using Google Cloud Translation API."""
+    """Service for translating text between English and Hindi via Google Cloud Translation."""
 
     def __init__(self) -> None:
         self.logger = logging.getLogger(__name__)
@@ -22,7 +24,6 @@ class TranslationService:
         if self._client is None:
             try:
                 from google.cloud import translate_v2 as translate
-
                 self._client = translate.Client()
                 self.logger.info("Google Cloud Translation client initialized")
             except Exception as e:
@@ -43,21 +44,22 @@ class TranslationService:
 
         Returns:
             TranslateResponse with translated text and detected source language.
-
-        Raises:
-            RuntimeError: If the translation client is not available.
         """
-        client = self._get_client()
+        # Use make_key so colon characters inside `text` can't cause collisions
+        cache_key = LRUCache.make_key(target, text)
+        cached = _cache.get(cache_key)
+        if cached is not None:
+            self.logger.info("Translation cache hit: target=%s", target)
+            return cached
 
-        self.logger.info(
-            "Translating text (length=%d) to target=%s",
-            len(text),
-            target,
-        )
+        client = self._get_client()
+        self.logger.info("Translating text (length=%d) to target=%s", len(text), target)
 
         result = client.translate(text, target_language=target)
-
-        return TranslateResponse(
+        response = TranslateResponse(
             translated_text=result["translatedText"],
             detected_source=result["detectedSourceLanguage"],
         )
+
+        _cache.set(cache_key, response)
+        return response

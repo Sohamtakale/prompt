@@ -7,8 +7,10 @@ import type { GlossaryTerm } from '../../types';
 
 const terms = glossaryData as GlossaryTerm[];
 
-// Build a list of all term names for cross-linking
+// Build lookup structures once at module level (not per render)
 const allTermNames = new Set(terms.map((t) => t.term));
+// Pre-sorted by length descending to avoid partial-match shadowing
+const sortedTermNames = Array.from(allTermNames).sort((a, b) => b.length - a.length);
 
 // Group terms alphabetically
 function groupByLetter(items: GlossaryTerm[]): Record<string, GlossaryTerm[]> {
@@ -80,16 +82,13 @@ export default function GlossaryPage() {
   };
 
   // Cross-link: make term names in definition clickable
+  // Uses module-level sortedTermNames (pre-sorted, O(n) per definition)
   const renderDefinition = (definition: string, currentTerm: string) => {
     const parts: React.ReactNode[] = [];
     let remaining = definition;
 
-    // Sort terms by length (longest first) to avoid partial matches
-    const sortedTerms = Array.from(allTermNames)
-      .filter((t) => t !== currentTerm)
-      .sort((a, b) => b.length - a.length);
-
-    for (const termName of sortedTerms) {
+    for (const termName of sortedTermNames) {
+      if (termName === currentTerm) continue;
       const idx = remaining.indexOf(termName);
       if (idx !== -1) {
         if (idx > 0) parts.push(remaining.substring(0, idx));
@@ -100,12 +99,12 @@ export default function GlossaryPage() {
               e.stopPropagation();
               setExpandedTerm(termName);
               setGeminiExplanation(null);
-              // Scroll to the term
               document.getElementById(`term-${termName}`)?.scrollIntoView({
                 behavior: 'smooth',
                 block: 'center',
               });
             }}
+            aria-label={`Go to glossary term: ${termName}`}
             className="text-accent-light hover:text-white underline underline-offset-4 decoration-accent/50 hover:decoration-accent transition-colors font-semibold cursor-pointer"
           >
             {termName}
@@ -145,7 +144,7 @@ export default function GlossaryPage() {
             className="w-full pl-12 pr-4 py-4 bg-surface-card border border-white/10 rounded-2xl text-text-primary placeholder:text-text-muted/50 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all shadow-lg backdrop-blur-md"
           />
         </div>
-        <p className="text-xs text-text-muted mt-3 text-center uppercase tracking-widest font-bold">
+        <p className="text-xs text-text-muted mt-3 text-center uppercase tracking-widest font-bold" aria-live="polite" aria-atomic="true">
           {filteredTerms.length} term{filteredTerms.length !== 1 ? 's' : ''} found
         </p>
       </div>
@@ -162,9 +161,9 @@ export default function GlossaryPage() {
               const letter = item.value as string;
               return (
                 <div className="sticky top-0 bg-surface/80 backdrop-blur-xl py-4 z-10 mb-2 border-b border-white/5">
-                   <h2 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-light inline-block">
+                  <h3 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-light inline-block">
                     {letter}
-                  </h2>
+                  </h3>
                 </div>
               );
             } else {

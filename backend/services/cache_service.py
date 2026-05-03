@@ -8,6 +8,7 @@ import asyncio
 import hashlib
 import logging
 import time
+from collections import OrderedDict
 from typing import Any
 
 
@@ -20,7 +21,7 @@ class CacheService:
     """
 
     def __init__(self, ttl: int = 3600, max_size: int = 256) -> None:
-        self._cache: dict[str, dict[str, Any]] = {}
+        self._cache: OrderedDict[str, dict[str, Any]] = OrderedDict()
         self._ttl = ttl
         self._max_size = max_size
         self._hits = 0
@@ -99,9 +100,7 @@ class CacheService:
                 "value": value,
                 "timestamp": time.monotonic(),
             }
-            # Move to end for LRU ordering
-            if hasattr(self._cache, "move_to_end"):
-                self._cache.move_to_end(key)  # type: ignore[attr-defined]
+            self._cache.move_to_end(key)
             self.logger.debug("Cache SET key=%s endpoint=%s", key[:12], endpoint)
 
     async def invalidate(self, endpoint: str, input_text: str) -> bool:

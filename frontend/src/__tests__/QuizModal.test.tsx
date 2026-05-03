@@ -65,4 +65,41 @@ describe('QuizModal', () => {
 
     expect(onClose).toHaveBeenCalledTimes(1);
   });
+
+  it('shows first question after loading', async () => {
+    render(<QuizModal topic="ECI" isOpen={true} onClose={vi.fn()} />);
+
+    // Wait for the question to appear
+    expect(await screen.findByText('What does EVM stand for?')).toBeInTheDocument();
+  });
+
+  it('allows selecting an answer option', async () => {
+    const user = userEvent.setup();
+    render(<QuizModal topic="ECI" isOpen={true} onClose={vi.fn()} />);
+
+    await screen.findByText('What does EVM stand for?');
+
+    const options = screen.getAllByRole('button', { name: /Electronic/i });
+    await user.click(options[0]);
+
+    // Confirm button should appear
+    expect(screen.getByRole('button', { name: /confirm answer/i })).toBeInTheDocument();
+  });
+
+  it('shows correct/incorrect feedback after confirming', async () => {
+    const user = userEvent.setup();
+    render(<QuizModal topic="ECI" isOpen={true} onClose={vi.fn()} />);
+
+    await screen.findByText('What does EVM stand for?');
+
+    // Select the correct answer (index 0 = "Electronic Voting Machine")
+    const firstOption = screen.getAllByRole('button')[0];
+    await user.click(firstOption);
+
+    const confirmBtn = screen.getByRole('button', { name: /confirm answer/i });
+    await user.click(confirmBtn);
+
+    // Explanation should appear
+    expect(screen.getByText(/EVM stands for Electronic Voting Machine/i)).toBeInTheDocument();
+  });
 });

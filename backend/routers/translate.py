@@ -2,10 +2,11 @@
 
 import logging
 
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException, Request
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 
+from middleware.auth import get_optional_user
 from models.schemas import TranslateRequest, TranslateResponse
 from services.translation_service import TranslationService
 
@@ -21,12 +22,17 @@ limiter = Limiter(key_func=get_remote_address)
 @router.post("/translate", response_model=TranslateResponse)
 @limiter.limit("30/minute")
 async def translate_text(
-    request: Request, body: TranslateRequest
+    request: Request,  # noqa: ARG001 — consumed by @limiter.limit decorator
+    body: TranslateRequest,
+    user: dict | None = Depends(get_optional_user),
 ) -> TranslateResponse:
     """Translate text between English and Hindi.
 
     Uses Google Cloud Translation API with Application Default Credentials.
     """
+    if user is None:
+        logger.debug("Translation request from unauthenticated user")
+
     try:
         return translation_service.translate_text(body.text, body.target_lang)
 

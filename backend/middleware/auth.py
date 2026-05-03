@@ -1,40 +1,42 @@
-from fastapi import Request, HTTPException, Depends
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from firebase_admin import auth
+"""Firebase ID token verification middleware for VoteWise."""
+
 import logging
 
-security = HTTPBearer()
-logger = logging.getLogger(__name__)
+from fastapi import Depends, HTTPException, Request
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from firebase_admin import auth
 
-async def get_current_user(res: HTTPAuthorizationCredentials = Depends(security)):
-    """
-    FastAPI dependency to verify Firebase ID token.
-    Returns the decoded token (which contains user info).
-    """
-    token = res.credentials
+logger = logging.getLogger(__name__)
+security = HTTPBearer()
+
+
+def _verify_token(token: str) -> dict:
+    """Verify a Firebase ID token and return the decoded payload."""
     try:
-        decoded_token = auth.verify_id_token(token)
-        return decoded_token
+        return auth.verify_id_token(token)
     except Exception as e:
-        logger.error(f"Auth verification failed: {e}")
+        logger.warning("Token verification failed: %s", type(e).__name__)
         raise HTTPException(
             status_code=401,
             detail="Invalid or expired authentication token",
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-def get_optional_user(request: Request):
-    """
-    Optional auth dependency. 
-    Doesn't raise error if token is missing, just returns None.
-    """
-    auth_header = request.headers.get("Authorization")
-    if not auth_header or not auth_header.startswith("Bearer "):
+
+async def get_current_user(
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+) -> dict:
+    """FastAPI dependency — requires a valid Firebase ID token."""
+    return _verify_token(credentials.credentials)
+
+
+def get_optional_user(request: Request) -> dict | None:
+    """FastAPI dependency — returns decoded token or None if absent/invalid."""
+    auth_header = request.headers.get("Authorization", "")
+    parts = auth_header.split(" ", maxsplit=1)
+    if len(parts) != 2 or parts[0].lower() != "bearer" or not parts[1]:
         return None
-    
-    token = auth_header.split(" ")[1]
     try:
-        decoded_token = auth.verify_id_token(token)
-        return decoded_token
-    except Exception:
+        return _verify_token(parts[1])
+    except HTTPException:
         return None

@@ -14,22 +14,47 @@ import { ApiError } from '../types';
 import { auth } from '../lib/firebase';
 
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const REQUEST_TIMEOUT_MS = 30_000;
 
-async function request<T>(path: string, options?: RequestInit): Promise<T> {
+async function getAuthHeader(): Promise<string | null> {
+  const user = auth.currentUser;
+  if (!user) return null;
+  // forceRefresh=false: use cached token if still valid (Firebase refreshes automatically
+  // before expiry). On a 401 response we retry with forceRefresh=true — see request().
+  return user.getIdToken(false);
+}
+
+async function request<T>(path: string, options?: RequestInit, _retry = true): Promise<T> {
   const url = `${BASE_URL}${path}`;
   const headers: Record<string, string> = { 'Content-Type': 'application/json' };
 
-  // Add Firebase ID token if user is logged in
-  const user = auth.currentUser;
-  if (user) {
-    const token = await user.getIdToken();
-    headers['Authorization'] = `Bearer ${token}`;
+  const token = await getAuthHeader();
+  if (token) headers['Authorization'] = `Bearer ${token}`;
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
+  let response: Response;
+  try {
+    response = await fetch(url, {
+      ...options,
+      headers: { ...headers, ...options?.headers },
+      signal: controller.signal,
+    });
+  } catch (err) {
+    if (err instanceof DOMException && err.name === 'AbortError') {
+      throw new ApiError(408, 'Request timed out. Please try again.');
+    }
+    throw err;
+  } finally {
+    clearTimeout(timeoutId);
   }
 
-  const response = await fetch(url, {
-    ...options,
-    headers: { ...headers, ...options?.headers },
-  });
+  // On 401: the cached token may have been revoked. Force-refresh once and retry.
+  if (response.status === 401 && _retry && auth.currentUser) {
+    await auth.currentUser.getIdToken(true);
+    return request<T>(path, options, false);
+  }
 
   if (!response.ok) {
     const errorText = await response.text().catch(() => 'Unknown error');
@@ -73,5 +98,23 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({ text, target_lang: targetLang }),
     });
+  },
+
+  /** Send a chat message with history, returns assistant reply. */
+  chat: async (messages: { role: 'user' | 'assistant'; content: string }[]): Promise<string> => {
+    const res = await request<{ reply: string }>('/api/chat', {
+      method: 'POST',
+      body: JSON.stringify({ messages }),
+    });
+    return res.reply;
+  },
+
+  /** Convert text to speech, returns base64 MP3 audio. */
+  tts: async (text: string, languageCode: 'en-IN' | 'hi-IN' = 'en-IN'): Promise<string> => {
+    const res = await request<{ audio_base64: string; language_code: string }>('/api/tts', {
+      method: 'POST',
+      body: JSON.stringify({ text, language_code: languageCode }),
+    });
+    return res.audio_base64;
   },
 };
